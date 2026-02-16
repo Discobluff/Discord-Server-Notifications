@@ -17,6 +17,7 @@ This project is for handling all of your repos notifications in one Discord serv
 ## Requirements
 
 - Python 3.10 or higher
+- Install dependencies with `pip install -r requirements.txt`
 
 ## Utilisation
 
@@ -27,3 +28,9 @@ python3 src/terminal.py
 ```
 
 ### Discord bot
+
+```bash
+python3 src/bot.py
+```
+
+In the a Discord channel where the bot is, use the command `!github <repo_name>` to add a repo to the channel.
