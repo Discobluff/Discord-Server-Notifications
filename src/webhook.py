@@ -50,6 +50,3 @@ def createDiscordWebhook(channelId : str) -> str:
 def createWebhook(repoName : str, discordChannelId : str):
     url = createDiscordWebhook(discordChannelId)
     linkWebhook(url, repoName)
-
-if __name__ == "__main__":
-    createWebhook("Discord-Server-Notifications", "1472994225216819408")

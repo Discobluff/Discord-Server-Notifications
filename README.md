@@ -2,6 +2,8 @@
 
 ## Description
 
+This project is for handling all of your repos notifications in one Discord server. You select a repo and a discord channel and you will receive notifications for Pushes and Pull Requests of the repo.
+
 ## Configuration
 
 - Copy .env.example to .env
@@ -12,4 +14,16 @@
 - Invite the bot to your server `https://discord.com/oauth2/authorize?client_id=CLIENT_ID&permissions=536872960&scope=bot%20applications.commands` (CLIENT_ID is your app id)
 
 
+## Requirements
+
+- Python 3.10 or higher
+
 ## Utilisation
+
+### Terminal
+
+```bash
+python3 src/terminal.py
+```
+
+### Discord bot
