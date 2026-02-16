@@ -2,6 +2,12 @@ import os
 from dotenv import load_dotenv
 import requests
 
+class WebhookCreationError(Exception):
+    pass
+
+class GithubWebhookError(Exception):
+    pass
+
 def linkWebhook(webhookUrl : str, repoName : str):
     load_dotenv()
     githubToken = os.getenv("GITHUB_TOKEN")
@@ -25,6 +31,8 @@ def linkWebhook(webhookUrl : str, repoName : str):
     }
     
     response = requests.post(url, headers=headers, json=payload)
+    if response.status_code not in (200, 201):
+        raise GithubWebhookError()
     return response.json()
     
 def createDiscordWebhook(channelId : str) -> str:
@@ -44,9 +52,17 @@ def createDiscordWebhook(channelId : str) -> str:
     }
     
     response = requests.post(url, headers=headers, json=payload)
+    if response.status_code not in (200, 201):
+        raise WebhookCreationError()
     data = response.json()
     return data.get("url", "")
 
-def createWebhook(repoName : str, discordChannelId : str):
-    url = createDiscordWebhook(discordChannelId)
-    linkWebhook(url, repoName)
+def createWebhook(repoName : str, discordChannelId : str) -> str:
+    try:
+        url = createDiscordWebhook(discordChannelId)
+        linkWebhook(url, repoName)
+        return "Le lien a été créé avec succès"
+    except WebhookCreationError:
+        return "Echec de la création du webhook Discord"
+    except GithubWebhookError:
+        return "Echec de la création du webhook Github"

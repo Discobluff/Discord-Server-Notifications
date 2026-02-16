@@ -4,6 +4,8 @@
 
 This project is for handling all of your repos notifications in one Discord server. You select a repo and a discord channel and you will receive notifications for Pushes and Pull Requests of the repo.
 
+![Discord Server Notifications](assets/readme.png)
+
 ## Configuration
 
 - Copy .env.example to .env
@@ -33,4 +35,4 @@ python3 src/terminal.py
 python3 src/bot.py
 ```
 
-In the a Discord channel where the bot is, use the command `!github <repo_name>` to add a repo to the channel.
+In a Discord channel where the bot is, use the command `!github <repo_name>` to add a repo to the channel.
