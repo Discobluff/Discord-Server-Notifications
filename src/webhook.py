@@ -19,7 +19,7 @@ def linkWebhook(webhookUrl : str, repoName : str):
         "active": True,
         "events": ["push", "pull_request"],
         "config": {
-            "url": webhookUrl,
+            "url": webhookUrl + "/github",
             "content_type": "json"
         }
     }
@@ -27,7 +27,7 @@ def linkWebhook(webhookUrl : str, repoName : str):
     response = requests.post(url, headers=headers, json=payload)
     return response.json()
     
-def createDiscordWebhook(channelId : str, name : str) -> str:
+def createDiscordWebhook(channelId : str) -> str:
     load_dotenv()
     discordToken = os.getenv("BOT_TOKEN")
     
@@ -39,7 +39,7 @@ def createDiscordWebhook(channelId : str, name : str) -> str:
     }
     
     payload = {
-        "name": name,
+        "name": "Github",
         "avatar": None
     }
     
@@ -47,10 +47,9 @@ def createDiscordWebhook(channelId : str, name : str) -> str:
     data = response.json()
     return data.get("url", "")
 
+def createWebhook(repoName : str, discordChannelId : str):
+    url = createDiscordWebhook(discordChannelId)
+    linkWebhook(url, repoName)
+
 if __name__ == "__main__":
-    # url = createDiscordWebhook("1472994225216819408"," marge")
-    # print(url)
-    # linkWebhook(url, "Discord-Server-Notifications")
-    
-    content = {"content":"coucou"}
-    requests.post("https://discord.com/api/webhooks/1473011873514258615/kMZ6rJk_L7AECKapOFNdxFbiGCRgXz81AyizYZ6THotoHHGKFjgHF96JoBsbTiyfmovN",json=content)
+    createWebhook("Discord-Server-Notifications", "1472994225216819408")
